@@ -6,6 +6,7 @@ const routes = [
     name: "/登录",
     //component:Login,
     component: () => import("../views/Login.vue"),
+    //redirect: "/login",
   },
 ];
 
