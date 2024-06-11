@@ -1,17 +1,31 @@
 <template>
-  <div>
+  <div class="check-box">
+    <el-input
+      type="text"
+      v-model="inputText"
+      class="inputbox"
+      placeholder="请输入验证码"
+      size="large"
+      ><template #prefix>
+        <span class="iconfont icon-check_code"></span>
+      </template>
+    </el-input>
+
     <canvas
       ref="canvas"
       width="120"
       height="40"
       @click="refreshCanvas"
+      class="check-canvas"
     ></canvas>
-    <input type="text" v-model="inputText" />
-    <button @click="verifyCode">验证</button>
   </div>
 </template>
 
 <script>
+import { reactive } from "vue";
+const fromData = reactive({
+  checkcode: "",
+});
 export default {
   data() {
     return {
@@ -31,6 +45,8 @@ export default {
       const canvas = this.$refs.canvas;
       const context = canvas.getContext("2d");
       context.clearRect(0, 0, 120, 40); // 清空画布
+      context.fillStyle = "#e0e0e0";
+      context.fillRect(0, 0, 120, 40);
 
       const aCode = "0123456789abcdef".split("");
       let arr = [];
@@ -76,9 +92,11 @@ export default {
     },
     verifyCode() {
       if (this.inputText === this.num) {
-        alert("验证通过");
+        return true;
+        //alert("验证通过");
       } else {
-        alert("验证失败");
+        return false;
+        //alert("验证失败");
       }
     },
   },
@@ -87,3 +105,13 @@ export default {
   },
 };
 </script>
+<style>
+.check-box {
+  display: flex;
+  align-items: center;
+}
+
+.check-canvas {
+  margin-left: 10px;
+}
+</style>
