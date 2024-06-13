@@ -43,13 +43,6 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="ccc">
-      <div>id:<input type="text" id="id" /></div>
-      <div>username:<input type="text" id="usm" /></div>
-      <div>password:<input type="text" id="psw" /></div>
-      <div>age:<input type="text" id="age" /></div>
-      <div><button id="lnButton">Ln</button></div>
-    </div>
   </div>
 </template>
 <script setup>
@@ -58,8 +51,10 @@ import { reactive, ref, onMounted } from "vue";
 import checkCode from "../components/checkcode.vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+//import { router } from "../router/index.ts";
 
 const checkRef = ref(null);
+const router = useRouter();
 
 const checkVerification = async () => {
   const isVerified = await checkRef.value.verifyCode();
@@ -75,7 +70,6 @@ const checkVerification = async () => {
 };
 
 const login = async () => {
-  //const valid = await formDataRef.value.validate();
   formDataRef.value.validate((valid) => {
     if (!valid) {
       console.log("表单数据验证失败");
@@ -141,8 +135,9 @@ const formDataRef = ref();
   })
 
 };*/
+/*
 /*试验代码===>*/
-
+/*
 var i = 0;
 
 function displayData() {
@@ -197,8 +192,8 @@ function ln() {
 
 onMounted(() => {
   document.getElementById("lnButton").addEventListener("click", ln);
-});
-/* <==试验代码 */
+});*/
+// <==试验代码
 </script>
 <style lang="scss">
 .login-body {

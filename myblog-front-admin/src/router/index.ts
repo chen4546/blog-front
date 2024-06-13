@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
   {
     path: "/login",
     name: "/登录",
@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/home",
     //name: "Home",
     component: () => import("../views/Home.vue"),
+  },
+  {
+    path: "/learn",
+    //name: "Home",
+    component: () => import("../views/learn.vue"),
   },
 ];
 
