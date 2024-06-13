@@ -4,21 +4,23 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  /*server: {
-    hmr:true,
-    port: 3000,
+  server: {
+    open: true,
+    host: "localhost",
+    port: 3031,
+
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        secure: false,
+      "/api": {
+        target: "http://localhost:3030", //后端接口地址
+        ws: true,
         changeOrigin: true,
-        pathRewrite: {
-        '^/api': '/api'
-      }
-  }*/
-  /* resolve: {
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+  resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },*/
+  },
 });
