@@ -89,7 +89,7 @@ const login = async () => {
   console.log(userData.account);
   console.log();
   axios({
-    url: "http://localhost:3030/login",
+    url: "http://39.96.173.203:3030/login",
     userData: formDataRef.value,
   }).then((result) => {
     console.log(result.data[1].id);
