@@ -17,11 +17,6 @@ const routes = [
     //name: "Home",
     component: () => import("../views/Home.vue"),
   },
-  {
-    path: "/learn",
-    //name: "Home",
-    component: () => import("../views/learn.vue"),
-  },
 ];
 
 const router = createRouter({
