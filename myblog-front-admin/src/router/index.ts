@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { defineAsyncComponent } from "vue";
+import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
+//import type { DefineComponent } from "vue";
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
-    name: "/登录",
-    //component:Login,
-    component: () => import("../views/Login.vue"),
-    //redirect: "/login",
+    name: "Login",
+    component: defineAsyncComponent(() => import("../views/Login.vue")),
   },
   {
     path: "/",
@@ -14,8 +14,8 @@ const routes = [
   },
   {
     path: "/home",
-    //name: "Home",
-    component: () => import("../views/Home.vue"),
+    name: "Home",
+    component: defineAsyncComponent(() => import("../views/Home.vue")),
   },
 ];
 
@@ -23,4 +23,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 export default router;

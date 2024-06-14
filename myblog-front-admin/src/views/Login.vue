@@ -60,12 +60,12 @@ const checkVerification = async () => {
   const isVerified = await checkRef.value.verifyCode();
   if (isVerified) {
     console.log("验证码验证通过");
-    //alert("true");
-    // 执行验证通过后的逻辑
+    return true;
   } else {
     console.log("验证码验证失败");
     ElMessage.error("验证码错误，请重试！");
     // 执行验证失败后的逻辑
+    return false;
   }
 };
 
@@ -77,38 +77,41 @@ const login = async () => {
       return;
     }
   });
-  const verified = await checkVerification();
+  const isverified = await checkVerification();
+  if (isverified) {
+    // 执行登录逻辑
 
-  // 执行登录逻辑
-
-  //const url = "http://localhost:3030/login";
-  const userData = {
-    account: formData.account,
-    password: formData.password,
-  };
-  console.log(userData.account);
-  console.log();
-  axios({
-    url: "http://39.96.173.203:3030/login",
-    userData: formDataRef.value,
-  }).then((result) => {
-    console.log(result.data[1].id);
-    if (
-      result.data[1].id === userData.account &&
-      result.data[1].password === userData.password
-    ) {
-      // 跳转到home页面
-      console.log("11111");
-      router.push("/home");
-      return;
-    } else {
-      // 账号或密码不匹配的逻辑
-      // 显示错误信息或执行其他操作
-      console.log("000000");
-      ElMessage.error("账号或密码不匹配");
-      return;
-    }
-  });
+    //const url = "http://localhost:3030/login";
+    const userData = {
+      account: formData.account,
+      password: formData.password,
+    };
+    console.log(userData.account);
+    console.log();
+    axios({
+      url: "http://39.96.173.203:3030/login",
+      userData: formDataRef.value,
+    }).then((result) => {
+      console.log(result.data[1].id);
+      if (
+        result.data[1].id === userData.account &&
+        result.data[1].password === userData.password
+      ) {
+        // 跳转到home页面
+        console.log("11111");
+        router.push("/home");
+        return;
+      } else {
+        // 账号或密码不匹配的逻辑
+        // 显示错误信息或执行其他操作
+        console.log("000000");
+        ElMessage.error("账号或密码不匹配");
+        return;
+      }
+    });
+  } else {
+    return;
+  }
 };
 //表单
 const formData = reactive({});
