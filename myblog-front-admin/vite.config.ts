@@ -11,7 +11,7 @@ export default defineConfig({
 
     proxy: {
       "/api": {
-        target: "http://localhost:3030", //后端接口地址
+        target: "http://39.96.173.203:3030", //后端接口地址
         ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
@@ -22,5 +22,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    chunkSizeWarningLimit: 2000, // 将警告限制调整为2000KB
   },
 });
