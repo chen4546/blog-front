@@ -94,6 +94,7 @@ const login = async () => {
     const userData = {
       account: formData.account,
       password: formData.password,
+      rememberMe: formData.rememberMe,
     };
     console.log(userData.account);
     console.log();
@@ -106,12 +107,17 @@ const login = async () => {
         result.data[1].id === userData.account &&
         result.data[1].password === userData.password
       ) {
+        //登录成功
+        ElMessage.success("登陆成功");
         // 跳转到home页面
-        console.log("11111");
-        router.push("/home");
+        setTimeout(() => {
+          router.push("/");
+        }, 100);
+
         const loginInfo = {
           account: userData.account,
           password: userData.password,
+          rememberMe: userData.rememberMe,
         };
         if (formData.rememberMe) {
           Vuecookies.set("loginInfo", loginInfo, "7d");
