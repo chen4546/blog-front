@@ -46,11 +46,13 @@
   </div>
 </template>
 <script setup>
+import Vuecookies from "vue-cookies";
 import axios from "axios";
 import { reactive, ref, onMounted } from "vue";
 import checkCode from "../components/checkcode.vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+
 //import { router } from "../router/index.ts";
 
 const checkRef = ref(null);
@@ -68,7 +70,14 @@ const checkVerification = async () => {
     return false;
   }
 };
-
+onMounted(() => {
+  const loginInfo = Vuecookies.get("loginInfo");
+  if (loginInfo) {
+    formData.account = loginInfo.account; // 自动填写账号
+    formData.password = loginInfo.password; // 自动填写密码
+    formData.rememberMe = true; // 勾选“记住我”复选框
+  }
+});
 const login = async () => {
   formDataRef.value.validate((valid) => {
     if (!valid) {
@@ -89,8 +98,8 @@ const login = async () => {
     console.log(userData.account);
     console.log();
     axios({
+      data: userData,
       url: "http://39.96.173.203:3030/login",
-      userData: formDataRef.value,
     }).then((result) => {
       console.log(result.data[1].id);
       if (
@@ -100,6 +109,14 @@ const login = async () => {
         // 跳转到home页面
         console.log("11111");
         router.push("/home");
+        const loginInfo = {
+          account: userData.account,
+          password: userData.password,
+        };
+        if (formData.rememberMe) {
+          Vuecookies.set("loginInfo", loginInfo, "7d");
+          console.log("登录信息已成功存储：", loginInfo);
+        }
         return;
       } else {
         // 账号或密码不匹配的逻辑
@@ -109,10 +126,11 @@ const login = async () => {
         return;
       }
     });
-  } else {
-    return;
+
+    //Vuecookies.set("userInfo", result.data[1], 0);
   }
 };
+
 //表单
 const formData = reactive({});
 const rules = {

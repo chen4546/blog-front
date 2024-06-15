@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: defineAsyncComponent(() => import("../views/Login.vue")),
+    component: () => import("../views/Login.vue"),
   },
   {
     path: "/",
@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/home",
     name: "Home",
-    component: defineAsyncComponent(() => import("../views/Home.vue")),
+    component: () => import("../views/Home.vue"),
   },
 ];
 
