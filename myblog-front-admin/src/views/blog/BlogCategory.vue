@@ -2,13 +2,25 @@
   <div class="blog">
     <h1>博客管理</h1>
     <div v-if="myblogs && myblogs.length" class="blog-list">
-      <div v-for="myblog in myblogs" :key="myblog.id" class="blog-info">
-        <p><strong>作者id:</strong> {{ myblog.id }}</p>
-        <p><strong>标题:</strong> {{ myblog.title_id }}</p>
-        <p>
-          <strong>内容:</strong>
-          <span v-html="myblog.content"></span>
-        </p>
+      <div
+        v-for="myblog in myblogs"
+        :key="myblog.title_id"
+        class="blog-info"
+        @click="selectBlog(myblog.title_id)"
+      >
+        <div v-if="selectedBlogId !== myblog.title_id">
+          <p>
+            <strong>作者id:</strong> {{ myblog.id }} <strong>标题:</strong>
+            {{ myblog.title_id }}
+          </p>
+        </div>
+        <div v-if="selectedBlogId === myblog.title_id" class="enlarged">
+          <p>
+            <strong>作者id:</strong> {{ myblog.id }} <strong>标题:</strong>
+            {{ myblog.title_id }}
+          </p>
+          <p><strong>内容:</strong> <span v-html="myblog.content"></span></p>
+        </div>
       </div>
     </div>
     <div v-else class="no-user">
@@ -22,9 +34,11 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 
 const myblogs = ref([]);
+const selectedBlogId = ref(null);
+
 const getBlog = () => {
   axios
-    .get("http://localhost:3030/title")
+    .get("http://8.130.27.131:3030/title")
     .then((result) => {
       myblogs.value = result.data;
     })
@@ -33,6 +47,11 @@ const getBlog = () => {
       myblogs.value = [];
     });
 };
+
+const selectBlog = (id) => {
+  selectedBlogId.value = selectedBlogId.value === id ? null : id;
+};
+
 onMounted(() => {
   getBlog();
 });
@@ -67,12 +86,21 @@ h1 {
   background-color: #fff;
   width: 80%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  p {
+    margin: 10px 0;
+    text-align: left;
   }
+}
+
+.enlarged {
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 
   p {
     margin: 10px 0;

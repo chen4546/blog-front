@@ -24,9 +24,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px" class="left-aside">
-          <div>
-            <el-button class="post-btn">发布</el-button>
-          </div>
+          <div></div>
           <div class="menu-panel">
             <ul>
               <li v-for="(menu, index) in menuList">

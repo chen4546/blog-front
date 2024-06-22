@@ -22,7 +22,7 @@ const users = ref([]);
 
 const fetchUsers = () => {
   axios
-    .get("http://localhost:3030/login")
+    .get("http://8.130.27.131:3030/login")
     .then((result) => {
       users.value = result.data; // 获取所有用户信息并赋值给users
     })

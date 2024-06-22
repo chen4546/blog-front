@@ -2,7 +2,9 @@
   <div>
     <input v-model="title" placeholder="请输入博客标题" />
     <div ref="editor" style="text-align: left"></div>
-    <el-button type="primary" @click="handleSubmit">upload</el-button>
+    <el-button type="primary" @click="handleSubmit" style="margin-top: 10px"
+      >上传</el-button
+    >
   </div>
 </template>
 

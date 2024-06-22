@@ -109,8 +109,8 @@ const login = async () => {
     console.log();
     axios({
       data: userData,
-      url: "http://localhost:3030/login",
-      //url: "http://8.130.27.131:3030/login",
+      //url: "http://localhost:3030/login",
+      url: "http://8.130.27.131:3030/login",
     }).then((result) => {
       const users = result.data;
 

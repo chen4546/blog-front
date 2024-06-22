@@ -60,7 +60,7 @@ export default {
     insertData() {
       axios({
         method: "GET",
-        url: "http://localhost:3030/login",
+        url: "http://8.130.27.131:3030/login",
       }).then((result) => {
         if (this.newuser.id === "" || this.newuser.password === "") {
           ElMessage.error("账号或密码不能为空");
@@ -78,7 +78,7 @@ export default {
         }
         if (!ishave) {
           axios
-            .post("http://localhost:3030/login/user", this.newuser) // 发送POST请求到后端接口
+            .post("http://8.130.27.131:3030/login/user", this.newuser) // 发送POST请求到后端接口
             .then((response) => {
               // 处理响应数据
               console.log(response.data);
