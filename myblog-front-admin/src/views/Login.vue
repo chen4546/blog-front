@@ -1,6 +1,7 @@
 <template>
   <div class="login-body">
-    <div class="login-panel">
+    <register v-if="!showLoginPanel" class="register-panel" />
+    <div class="login-panel" v-if="showLoginPanel">
       <div class="login-title">用户登录窗</div>
       <el-form :model="formData" :rules="rules" ref="formDataRef">
         <el-form-item prop="account">
@@ -31,7 +32,14 @@
           <el-checkbox v-model="formData.rememberMe" :label="true"
             >记住我</el-checkbox
           >
+          <el-link
+            type="primary"
+            @click="goToRegister"
+            style="margin-left: 200px"
+            >注册</el-link
+          >
         </el-form-item>
+
         <el-form-item label="">
           <el-button
             type="primary"
@@ -52,11 +60,13 @@ import { reactive, ref, onMounted } from "vue";
 import checkCode from "../components/checkcode.vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import register from "../components/Register.vue";
 
 //import { router } from "../router/index.ts";
 
 const checkRef = ref(null);
 const router = useRouter();
+const showLoginPanel = ref(true);
 
 const checkVerification = async () => {
   const isVerified = await checkRef.value.verifyCode();
@@ -90,7 +100,6 @@ const login = async () => {
   if (isverified) {
     // 执行登录逻辑
 
-    //const url = "http://localhost:3030/login";
     const userData = {
       account: formData.account,
       password: formData.password,
@@ -100,13 +109,26 @@ const login = async () => {
     console.log();
     axios({
       data: userData,
-      url: "http://39.96.173.203:3030/login",
+      url: "http://localhost:3030/login",
+      //url: "http://8.130.27.131:3030/login",
     }).then((result) => {
-      console.log(result.data[1].id);
-      if (
-        result.data[1].id === userData.account &&
-        result.data[1].password === userData.password
-      ) {
+      const users = result.data;
+
+      let isMatch = false;
+
+      let nowuser = {};
+      for (let user of users) {
+        if (
+          user.id === userData.account &&
+          user.password === userData.password
+        ) {
+          isMatch = true;
+          nowuser = user;
+          break;
+        }
+      }
+
+      if (isMatch) {
         //登录成功
         ElMessage.success("登陆成功");
         // 跳转到home页面
@@ -119,7 +141,8 @@ const login = async () => {
           password: userData.password,
           rememberMe: userData.rememberMe,
         };
-        if (formData.rememberMe) {
+        Vuecookies.set("userInfo", nowuser, 0);
+        if (formData.rememberMe == 1) {
           Vuecookies.set("loginInfo", loginInfo, "7d");
           console.log("登录信息已成功存储：", loginInfo);
         }
@@ -136,7 +159,9 @@ const login = async () => {
     //Vuecookies.set("userInfo", result.data[1], 0);
   }
 };
-
+const goToRegister = () => {
+  showLoginPanel.value = false; // 隐藏登录窗
+};
 //表单
 const formData = reactive({});
 const rules = {

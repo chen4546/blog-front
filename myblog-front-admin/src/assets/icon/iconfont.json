@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1388124",
+      "name": "open",
+      "font_class": "open",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "40797224",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e82c",
+      "unicode_decimal": 59436
+    },
+    {
+      "icon_id": "6461007",
+      "name": "Blog",
+      "font_class": "Blog",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "18863200",
+      "name": "专题",
+      "font_class": "zhuanti",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "4765891",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e78e",
+      "unicode_decimal": 59278
+    },
+    {
+      "icon_id": "1596778",
+      "name": "delete_light",
+      "font_class": "delete_light",
+      "unicode": "e7ed",
+      "unicode_decimal": 59373
+    },
+    {
       "icon_id": "1061308",
       "name": "account",
       "font_class": "account",

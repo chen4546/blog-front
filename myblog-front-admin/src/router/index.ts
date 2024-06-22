@@ -21,6 +21,29 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "框架页",
     component: () => import("../views/Framework.vue"),
+    redirect: "/blog/list",
+    children: [
+      {
+        path: "/blog/list",
+        name: "博客撰写",
+        component: () => import("../views/blog/Blog.vue"),
+      },
+      {
+        path: "blog/category",
+        name: "博客管理",
+        component: () => import("../views/blog/BlogCategory.vue"),
+      },
+      {
+        path: "/setting/profile",
+        name: "个人资料",
+        component: () => import("../views/setting/Profile.vue"),
+      },
+      {
+        path: "/setting/user",
+        name: "博客成员",
+        component: () => import("../views/setting/User.vue"),
+      },
+    ],
   },
 ];
 
@@ -30,8 +53,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  const loginInfo = (Vuecookies as any).get("loginInfo");
-  if (!loginInfo && to.path != "/login") {
+  const userInfo = (Vuecookies as any).get("userInfo");
+  if (!userInfo && to.path != "/login") {
     router.push("/login");
   }
   next();

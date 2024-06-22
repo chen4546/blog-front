@@ -21,7 +21,8 @@
     "vite-plugin-html": "^3.2.2",
     "vue": "^3.4.21",
     "vue-cookies": "^1.8.4",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
