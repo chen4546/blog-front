@@ -14,34 +14,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
 import axios from "axios";
-export default {
-  data() {
-    return {
-      users: [], // 保存所有用户信息
-    };
-  },
-  mounted() {
-    this.fetchUsers();
-  },
-  methods: {
-    fetchUsers() {
-      axios
-        .get("http://localhost:3030/login")
-        .then((result) => {
-          this.users = result.data; // 获取所有用户信息并赋值给users
-        })
-        .catch((error) => {
-          console.error("请求出错：", error);
-          this.users = []; // 如果请求出错设为空数组
-        });
-    },
-  },
+
+const users = ref([]);
+
+const fetchUsers = () => {
+  axios
+    .get("http://localhost:3030/login")
+    .then((result) => {
+      users.value = result.data; // 获取所有用户信息并赋值给users
+    })
+    .catch((error) => {
+      console.error("请求出错：", error);
+      users.value = []; // 如果请求出错设为空数组
+    });
 };
+
+onMounted(() => {
+  fetchUsers();
+});
 </script>
 
-<style scoped>
+<style lang="scss">
 .profile {
   text-align: center;
   padding: 20px;

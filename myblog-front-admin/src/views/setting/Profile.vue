@@ -13,26 +13,23 @@
   </div>
 </template>
 
-<script>
-import Vuecookies from "vue-cookies";
-const userInfo = Vuecookies.get("userInfo");
-export default {
-  name: "Profile",
-  data() {
-    return {
-      user: userInfo,
-    };
-  },
-  methods: {
-    getProfile() {
-      // 这里可以添加获取用户信息的逻辑
-      console.log("Fetching user profile...");
-    },
-  },
+<script setup>
+import { ref, onMounted } from "vue";
+import VueCookies from "vue-cookies";
+
+const user = ref(null);
+
+const getProfile = () => {
+  user.value = VueCookies.get("userInfo");
 };
+
+// 可以在组件挂载时获取用户信息
+onMounted(() => {
+  getProfile();
+});
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .profile {
   text-align: center;
   padding: 20px;
